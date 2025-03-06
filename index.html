@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa de Opinião - Cinema</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 25px;
+            color: #555;
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+
+        #resultado h2 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        #resultado p {
+            color: #777;
+            font-size: 1.1em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            border: none;
+            padding: 14px 16px;
+            text-align: left;
+            color: #555;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #e5e5e5;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Pesquisa de Opinião - Cinema</h1>
+        <p>Dados aleatórios dos 100 espectadores:</p>
+
+        <div id="tabelaDados">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Espectador</th>
+                        <th>Idade</th>
+                        <th>Opinião</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="resultado" class="oculto">
+            <h2>Resultados:</h2>
+            <p>Percentual de Ótimo: <span id="percentualOtimo">0%</span></p>
+            <p>Percentual de Bom: <span id="percentualBom">0%</span></p>
+            <p>Percentual de Regular: <span id="percentualRegular">0%</span></p>
+            <p>Média de Idade: <span id="mediaIdade">0</span> anos</p>
+        </div>
+    </div>
+
+    <script>
+        const tabelaDadosBody = document.querySelector("#tabelaDados tbody");
+        const opinioes = ["otimo", "bom", "regular"];
+
+        let totalOtimo = 0;
+        let totalBom = 0;
+        let totalRegular = 0;
+        let somaIdades = 0;
+
+        for (let i = 1; i <= 100; i++) {
+            const idade = Math.floor(Math.random() * 70) + 10; // Idade entre 10 e 79 anos
+            const opiniao = opinioes[Math.floor(Math.random() * opinioes.length)];
+
+            somaIdades += idade;
+
+            if (opiniao === "otimo") {
+                totalOtimo++;
+            } else if (opiniao === "bom") {
+                totalBom++;
+            } else {
+                totalRegular++;
+            }
+
+            // Cria uma linha na tabela
+            const linha = document.createElement("tr");
+            linha.innerHTML = `
+                <td>${i}</td>
+                <td>${idade}</td>
+                <td>${opiniao}</td>
+            `;
+            tabelaDadosBody.appendChild(linha);
+        }
+
+        const percentualOtimo = (totalOtimo / 100) * 100;
+        const percentualBom = (totalBom / 100) * 100;
+        const percentualRegular = (totalRegular / 100) * 100;
+        const mediaIdade = somaIdades / 100;
+
+        document.getElementById("percentualOtimo").textContent = percentualOtimo.toFixed(2) + "%";
+        document.getElementById("percentualBom").textContent = percentualBom.toFixed(2) + "%";
+        document.getElementById("percentualRegular").textContent = percentualRegular.toFixed(2) + "%";
+        document.getElementById("mediaIdade").textContent = mediaIdade.toFixed(0);
+
+
+    </script>
+</body>
+
+</html>
